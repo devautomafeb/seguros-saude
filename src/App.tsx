@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import thamirisBanner from "./assets/thamiris-banner.jpg";
+import thamirisBanner from "./assets/thamiris-banner.png";
 
 const WHATSAPP_NUMBER = "5522981132979"; // +55 22 98113-2979
 const WHATSAPP_DISPLAY = "(22) 98113-2979";
