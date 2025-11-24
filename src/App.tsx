@@ -1,0 +1,276 @@
+import type { FC } from "react";
+import thamirisBanner from "./assets/thamiris-banner.jpg";
+
+const WHATSAPP_NUMBER = "5522981132979"; // +55 22 98113-2979
+const WHATSAPP_DISPLAY = "(22) 98113-2979";
+
+const operators: string[] = [
+  "SulAmérica",
+  "Porto Seguro",
+  "Ampla Saúde",
+  "Prevent Senior",
+  "Unimed",
+  "Leve Saúde",
+  "MedSênior",
+  "Bradesco Saúde",
+  "Klini",
+  "Cemeru",
+  "Amil",
+  "Saúde Assim",
+  "Integral Saúde Caberj",
+  "Blue Med",
+  "Grupo NotreDame Intermédica",
+  "Memorial Saúde",
+  "Ônix Saúde",
+  "HSMed",
+];
+
+type Plan = {
+  id: number;
+  title: string;
+  text: string;
+};
+
+const plans: Plan[] = [
+  {
+    id: 1,
+    title: "Plano Individual ou Familiar",
+    text: "Ideal para quem busca proteção para si e para a família, com diferentes faixas de preços e redes credenciadas.",
+  },
+  {
+    id: 2,
+    title: "Plano Empresarial / MEI",
+    text: "Condições especiais para CNPJ e MEI, com possibilidade de incluir colaboradores e dependentes.",
+  },
+  {
+    id: 3,
+    title: "Planos para Idosos",
+    text: "Opções focadas na terceira idade, com atenção especial a hospitais, clínicas e exames essenciais.",
+  },
+];
+
+function openWhatsApp(message: string) {
+  const text = encodeURIComponent(message);
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+  window.open(url, "_blank");
+}
+
+const App: FC = () => {
+  return (
+    <div className="w-full flex justify-center">
+      <div className="w-full max-w-5xl bg-gradient-to-br from-cyan-500 to-emerald-400 rounded-3xl p-5 md:p-7 shadow-2xl text-slate-900">
+        {/* TOP BAR */}
+        <header className="flex items-center justify-between gap-4 mb-5 text-cyan-50">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center backdrop-blur">
+              <span className="text-base">❤</span>
+            </div>
+            <div className="leading-tight">
+              <p className="text-[0.8rem] font-bold tracking-[0.18em] uppercase">
+                MEDSAÚDE
+              </p>
+              <p className="text-[0.75rem] opacity-90">Corretora de Seguros</p>
+            </div>
+          </div>
+          <button
+            className="rounded-full border border-white/70 bg-white/15 px-4 py-2 text-[0.8rem] font-medium backdrop-blur hover:bg-white/25 transition"
+            onClick={() =>
+              openWhatsApp(
+                "Olá, Thamiris! Vi seu site e quero informações sobre planos de saúde."
+              )
+            }
+          >
+            Falar no WhatsApp
+          </button>
+        </header>
+
+        {/* HERO */}
+        <section className="flex flex-col md:flex-row gap-6 md:gap-8 bg-sky-50/95 rounded-2xl px-5 py-5 md:px-7 md:py-7">
+          <div className="flex-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-700 mb-2">
+              Sua saúde é a nossa prioridade
+            </p>
+            <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-2">
+              Planos de saúde com{" "}
+              <span className="text-blue-600">Thamiris Fonseca</span>
+            </h1>
+            <p className="text-sm md:text-base text-slate-600 mb-4 max-w-xl">
+              Compare diversas operadoras e encontre o plano ideal para você,
+              sua família ou empresa. Atendimento humanizado, transparente e sem
+              burocracia.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 mb-2">
+              <button
+                className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-emerald-50 shadow-lg shadow-emerald-600/50 hover:bg-emerald-700 transition"
+                onClick={() =>
+                  openWhatsApp(
+                    "Olá, Thamiris! Gostaria de um orçamento de plano de saúde."
+                  )
+                }
+              >
+                Pedir orçamento pelo WhatsApp
+              </button>
+
+              <div className="flex flex-col text-xs text-slate-700">
+                <span className="uppercase tracking-[0.18em] text-slate-500">
+                  Contato direto
+                </span>
+                <span className="font-semibold text-slate-900">
+                  {WHATSAPP_DISPLAY}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-[0.75rem] text-slate-500">
+              Atendimento online para toda a região. Cotação rápida e sem
+              compromisso.
+            </p>
+          </div>
+
+          <div className="flex-shrink-0 self-center md:self-auto">
+            <div className="relative">
+              <img
+                src={thamirisBanner}
+                alt="Thamiris Fonseca - Corretora de Planos de Saúde"
+                className="w-52 md:w-60 rounded-full border-[6px] border-emerald-500 shadow-2xl object-cover"
+              />
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-slate-900 text-slate-50 px-4 py-2 rounded-full shadow-xl text-center">
+                <p className="text-xs font-semibold leading-tight">
+                  Thamiris Fonseca
+                </p>
+                <p className="text-[0.65rem] opacity-80 leading-tight">
+                  Consultora de Planos de Saúde
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* OPERADORAS */}
+        <section className="mt-5 bg-sky-50/95 rounded-2xl px-5 py-4">
+          <div className="mb-3">
+            <h2 className="text-lg md:text-xl font-semibold text-slate-900">
+              Operadoras parceiras
+            </h2>
+            <p className="text-sm text-slate-600 max-w-2xl">
+              Trabalhamos com diversas operadoras de saúde, oferecendo opções
+              para diferentes perfis e orçamentos. A Thamiris compara as
+              coberturas e encontra o melhor custo-benefício para você.
+            </p>
+          </div>
+          <div className="bg-white rounded-xl p-3 shadow-sm">
+            <div className="flex flex-wrap gap-2">
+              {operators.map((op) => (
+                <span
+                  key={op}
+                  className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-medium border border-emerald-100"
+                >
+                  {op}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PLANOS */}
+        <section className="mt-5 bg-sky-50/95 rounded-2xl px-5 py-4">
+          <div className="mb-3">
+            <h2 className="text-lg md:text-xl font-semibold text-slate-900">
+              Como a Thamiris pode te ajudar
+            </h2>
+            <p className="text-sm text-slate-600 max-w-2xl">
+              Em poucos minutos você recebe simulações com as principais opções
+              de planos disponíveis para o seu perfil.
+            </p>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-3">
+            {plans.map((plan) => (
+              <article
+                key={plan.id}
+                className="bg-white rounded-xl p-3 shadow-sm flex flex-col justify-between"
+              >
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-900 mb-1.5">
+                    {plan.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 mb-3">{plan.text}</p>
+                </div>
+                <button
+                  className="w-full rounded-full border border-emerald-600 text-emerald-700 text-xs font-semibold py-2 hover:bg-emerald-600 hover:text-emerald-50 transition"
+                  onClick={() =>
+                    openWhatsApp(
+                      `Olá, Thamiris! Tenho interesse em ${plan.title} e gostaria de um orçamento.`
+                    )
+                  }
+                >
+                  Quero um orçamento
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* SOBRE */}
+        <section className="mt-5 bg-sky-50/95 rounded-2xl px-5 py-4">
+          <h2 className="text-lg md:text-xl font-semibold text-slate-900 mb-2">
+            Sobre a Thamiris Fonseca
+          </h2>
+          <div className="space-y-2 text-sm text-slate-600">
+            <p>
+              Thamiris Fonseca é corretora de seguros na{" "}
+              <span className="font-semibold">MEDSAÚDE</span>, especializada em
+              planos de saúde para pessoas físicas, famílias, autônomos e
+              empresas.
+            </p>
+            <p>
+              O atendimento é totalmente personalizado: ela entende sua
+              necessidade, compara as opções entre as operadoras parceiras e
+              apresenta as melhores alternativas de forma simples e clara.
+            </p>
+            <p>
+              Você não precisa lidar com vários canais diferentes. A Thamiris
+              acompanha você desde a cotação até depois da contratação, ajudando
+              sempre que precisar.
+            </p>
+          </div>
+        </section>
+
+        {/* CTA FINAL */}
+        <section className="mt-5 bg-slate-900 rounded-2xl px-5 py-5 text-slate-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 className="text-lg md:text-xl font-semibold mb-1">
+              Quer receber uma simulação agora?
+            </h2>
+            <p className="text-sm text-slate-200 max-w-md">
+              Clique no botão abaixo e fale diretamente com a Thamiris pelo
+              WhatsApp. Sem compromisso.
+            </p>
+          </div>
+          <button
+            className="rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-emerald-950 shadow-lg shadow-emerald-500/60 hover:bg-emerald-400 transition"
+            onClick={() =>
+              openWhatsApp(
+                "Oi, Thamiris! Quero comparar planos de saúde e receber uma simulação."
+              )
+            }
+          >
+            Falar com a Thamiris no WhatsApp
+          </button>
+        </section>
+
+        {/* RODAPÉ */}
+        <footer className="mt-4 text-center text-[0.75rem] text-cyan-50/95">
+          <p>MEDSAÚDE Corretora de Seguros • Planos de Saúde com Thamiris Fonseca</p>
+          <p className="mt-1 opacity-90">
+            Sua saúde é a nossa prioridade. Atendimento via WhatsApp:{" "}
+            {WHATSAPP_DISPLAY}
+          </p>
+        </footer>
+      </div>
+    </div>
+  );
+};
+
+export default App;
