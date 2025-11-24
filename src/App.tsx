@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import thamirisBanner from "./assets/thamiris-banner.png";
+
 
 const WHATSAPP_NUMBER = "5522981132979"; // +55 22 98113-2979
 const WHATSAPP_DISPLAY = "(22) 98113-2979";
@@ -131,7 +131,7 @@ const App: FC = () => {
           <div className="flex-shrink-0 self-center md:self-auto">
             <div className="relative">
               <img
-                src={thamirisBanner}
+                src={'tata.jpg'}
                 alt="Thamiris Fonseca - Corretora de Planos de Saúde"
                 className="w-52 md:w-60 rounded-full border-[6px] border-emerald-500 shadow-2xl object-cover"
               />
