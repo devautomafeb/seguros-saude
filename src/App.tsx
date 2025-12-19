@@ -1,8 +1,10 @@
 import type { FC } from "react";
 
-
 const WHATSAPP_NUMBER = "5522981132979"; // +55 22 98113-2979
 const WHATSAPP_DISPLAY = "(22) 98113-2979";
+
+const getWhatsAppUrl = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
 const operators: string[] = [
   "SulAmérica",
@@ -49,12 +51,6 @@ const plans: Plan[] = [
   },
 ];
 
-function openWhatsApp(message: string) {
-  const text = encodeURIComponent(message);
-  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-  window.open(url, "_blank");
-}
-
 const App: FC = () => {
   return (
     <div className="w-full flex justify-center">
@@ -72,16 +68,17 @@ const App: FC = () => {
               <p className="text-[0.75rem] opacity-90">Corretora de Seguros</p>
             </div>
           </div>
-          <button
-            className="rounded-full border border-white/70 bg-white/15 px-4 py-2 text-[0.8rem] font-medium backdrop-blur hover:bg-white/25 transition"
-            onClick={() =>
-              openWhatsApp(
-                "Olá, Thamiris! Vi seu site e quero informações sobre planos de saúde."
-              )
-            }
+
+          <a
+            href={getWhatsAppUrl(
+              "Olá, Thamiris! Vi seu site e quero informações sobre planos de saúde."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border border-white/70 bg-white/15 px-4 py-2 text-[0.8rem] font-medium backdrop-blur hover:bg-white/25 transition text-center"
           >
             Falar no WhatsApp
-          </button>
+          </a>
         </header>
 
         {/* HERO */}
@@ -90,10 +87,12 @@ const App: FC = () => {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-700 mb-2">
               Sua saúde é a nossa prioridade
             </p>
+
             <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-2">
               Planos de saúde com{" "}
               <span className="text-blue-600">Thamiris Fonseca</span>
             </h1>
+
             <p className="text-sm md:text-base text-slate-600 mb-4 max-w-xl">
               Compare diversas operadoras e encontre o plano ideal para você,
               sua família ou empresa. Atendimento humanizado, transparente e sem
@@ -101,16 +100,16 @@ const App: FC = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-2">
-              <button
-                className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-emerald-50 shadow-lg shadow-emerald-600/50 hover:bg-emerald-700 transition"
-                onClick={() =>
-                  openWhatsApp(
-                    "Olá, Thamiris! Gostaria de um orçamento de plano de saúde."
-                  )
-                }
+              <a
+                href={getWhatsAppUrl(
+                  "Olá, Thamiris! Gostaria de um orçamento de plano de saúde."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-emerald-50 shadow-lg shadow-emerald-600/50 hover:bg-emerald-700 transition text-center"
               >
                 Pedir orçamento pelo WhatsApp
-              </button>
+              </a>
 
               <div className="flex flex-col text-xs text-slate-700">
                 <span className="uppercase tracking-[0.18em] text-slate-500">
@@ -131,7 +130,7 @@ const App: FC = () => {
           <div className="flex-shrink-0 self-center md:self-auto">
             <div className="relative">
               <img
-                src={'tata.jpg'}
+                src={"tata.jpg"}
                 alt="Thamiris Fonseca - Corretora de Planos de Saúde"
                 className="w-52 md:w-60 rounded-full border-[6px] border-emerald-500 shadow-2xl object-cover"
               />
@@ -159,6 +158,7 @@ const App: FC = () => {
               coberturas e encontra o melhor custo-benefício para você.
             </p>
           </div>
+
           <div className="bg-white rounded-xl p-3 shadow-sm">
             <div className="flex flex-wrap gap-2">
               {operators.map((op) => (
@@ -197,16 +197,17 @@ const App: FC = () => {
                   </h3>
                   <p className="text-xs text-slate-600 mb-3">{plan.text}</p>
                 </div>
-                <button
-                  className="w-full rounded-full border border-emerald-600 text-emerald-700 text-xs font-semibold py-2 hover:bg-emerald-600 hover:text-emerald-50 transition"
-                  onClick={() =>
-                    openWhatsApp(
-                      `Olá, Thamiris! Tenho interesse em ${plan.title} e gostaria de um orçamento.`
-                    )
-                  }
+
+                <a
+                  href={getWhatsAppUrl(
+                    `Olá, Thamiris! Tenho interesse em ${plan.title} e gostaria de um orçamento.`
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full rounded-full border border-emerald-600 text-emerald-700 text-xs font-semibold py-2 hover:bg-emerald-600 hover:text-emerald-50 transition text-center"
                 >
                   Quero um orçamento
-                </button>
+                </a>
               </article>
             ))}
           </div>
@@ -248,21 +249,24 @@ const App: FC = () => {
               WhatsApp. Sem compromisso.
             </p>
           </div>
-          <button
-            className="rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-emerald-950 shadow-lg shadow-emerald-500/60 hover:bg-emerald-400 transition"
-            onClick={() =>
-              openWhatsApp(
-                "Oi, Thamiris! Quero comparar planos de saúde e receber uma simulação."
-              )
-            }
+
+          <a
+            href={getWhatsAppUrl(
+              "Oi, Thamiris! Quero comparar planos de saúde e receber uma simulação."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-emerald-950 shadow-lg shadow-emerald-500/60 hover:bg-emerald-400 transition text-center"
           >
             Falar com a Thamiris no WhatsApp
-          </button>
+          </a>
         </section>
 
         {/* RODAPÉ */}
         <footer className="mt-4 text-center text-[0.75rem] text-cyan-50/95">
-          <p>MEDSAÚDE Corretora de Seguros • Planos de Saúde com Thamiris Fonseca</p>
+          <p>
+            MEDSAÚDE Corretora de Seguros • Planos de Saúde com Thamiris Fonseca
+          </p>
           <p className="mt-1 opacity-90">
             Sua saúde é a nossa prioridade. Atendimento via WhatsApp:{" "}
             {WHATSAPP_DISPLAY}
