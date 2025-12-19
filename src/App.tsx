@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
+    gtag_report_conversion?: (url?: string) => boolean;
   }
 }
 
@@ -10,23 +10,21 @@ const WHATSAPP_NUMBER = "5522981132979"; // +55 22 98113-2979
 const WHATSAPP_DISPLAY = "(22) 98113-2979";
 
 /* =========================
-   CONVERSÃO GOOGLE ADS
+   WHATSAPP + CONVERSÃO (Google Ads)
+   - A conversão "Pedir estimativa do custo" fica no index.html (gtag_report_conversion)
+   - Aqui só chamamos a função no clique e redirecionamos para o WhatsApp
    ========================= */
-function trackWhatsAppConversion() {
-  if (typeof window !== "undefined" && typeof window.gtag === "function") {
-    window.gtag("event", "conversion", {
-      send_to: "AW-17306386716",
-    });
-  }
-}
-
 function openWhatsApp(message: string) {
-  // 🔥 registra conversão
-  trackWhatsAppConversion();
-
-  // abre WhatsApp
   const text = encodeURIComponent(message);
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+
+  // Dispara a conversão e redireciona (callback do snippet faz o redirect)
+  if (typeof window !== "undefined" && typeof window.gtag_report_conversion === "function") {
+    window.gtag_report_conversion(url);
+    return;
+  }
+
+  // Fallback caso o gtag ainda não tenha carregado
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
@@ -85,7 +83,6 @@ const App: FC = () => {
   return (
     <div className="w-full flex justify-center">
       <div className="w-full max-w-5xl bg-gradient-to-br from-cyan-500 to-emerald-400 rounded-3xl p-5 md:p-7 shadow-2xl text-slate-900">
-
         {/* TOP BAR */}
         <header className="flex items-center justify-between gap-4 mb-5 text-cyan-50">
           <div className="flex items-center gap-3">
@@ -136,7 +133,7 @@ const App: FC = () => {
               className="rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-emerald-700 transition"
               onClick={() =>
                 openWhatsApp(
-                  "Olá, Thamiris! Gostaria de um orçamento de plano de saúde."
+                  "Olá, Thamiris! Gostaria de uma estimativa do custo / orçamento de um plano de saúde."
                 )
               }
             >
@@ -159,11 +156,9 @@ const App: FC = () => {
 
         {/* OPERADORAS */}
         <section className="mt-5 bg-sky-50/95 rounded-2xl px-5 py-4">
-          <h2 className="text-lg font-semibold mb-2">
-            Operadoras parceiras
-          </h2>
+          <h2 className="text-lg font-semibold mb-2">Operadoras parceiras</h2>
           <div className="flex flex-wrap gap-2">
-            {operators.map(op => (
+            {operators.map((op) => (
               <span
                 key={op}
                 className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-medium border"
@@ -181,25 +176,21 @@ const App: FC = () => {
           </h2>
 
           <div className="grid md:grid-cols-3 gap-3">
-            {plans.map(plan => (
+            {plans.map((plan) => (
               <div
                 key={plan.id}
                 className="bg-white rounded-xl p-4 shadow-sm flex flex-col justify-between"
               >
                 <div>
-                  <h3 className="font-semibold text-sm mb-2">
-                    {plan.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 mb-4">
-                    {plan.text}
-                  </p>
+                  <h3 className="font-semibold text-sm mb-2">{plan.title}</h3>
+                  <p className="text-xs text-slate-600 mb-4">{plan.text}</p>
                 </div>
 
                 <button
                   className="rounded-full border border-emerald-600 text-emerald-700 text-xs font-semibold py-2 hover:bg-emerald-600 hover:text-white transition"
                   onClick={() =>
                     openWhatsApp(
-                      `Olá, Thamiris! Tenho interesse em ${plan.title} e gostaria de um orçamento.`
+                      `Olá, Thamiris! Tenho interesse em ${plan.title} e gostaria de uma estimativa do custo / orçamento.`
                     )
                   }
                 >
@@ -225,7 +216,7 @@ const App: FC = () => {
             className="rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-lg hover:bg-emerald-400 transition"
             onClick={() =>
               openWhatsApp(
-                "Oi, Thamiris! Quero comparar planos de saúde e receber uma simulação."
+                "Oi, Thamiris! Quero comparar planos de saúde e receber uma simulação (estimativa de custo)."
               )
             }
           >
@@ -239,7 +230,6 @@ const App: FC = () => {
           <p>CNPJ: 44.352.479/0001-09</p>
           <p>Sua saúde é a nossa prioridade.</p>
         </footer>
-
       </div>
     </div>
   );
